@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  dom:
+    build: ./
+    command: ./dom
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgresql/data
+    restart: always
+    image: postgres:16-alpine
+    environment:
+
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5436:5432"
